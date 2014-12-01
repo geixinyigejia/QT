@@ -1,0 +1,100 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-2.1.1.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <title>注册</title>
+</head>
+<body>
+   <img src="~/Picture/1221101.jpg" style="width: 100%" />
+    <div style="position:absolute; left: 600px; top: 300px;text-align:center">
+        <h3 style="color:red">请详细填写以下内容，以便我们审核，谢谢 </h3>
+@using (Html.BeginForm("RegCheck", "Login", FormMethod.Post))
+                {
+
+        <table>
+            <tr>
+                <td style="color:white"><label for="name">用&nbsp;&nbsp;户&nbsp;&nbsp;名： </label></td>
+                <td> <input name="name" type="text" class="form-control" placeholder="用户名" required autofocus></td>
+                <td></td>  
+            </tr>
+            <tr></tr>
+            <tr style="margin-top:10px;">
+                <td>
+                    <label style="color:white">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</label>
+                </td>
+                <td>
+                    <input name="password" type="password" class="form-control" placeholder="密码" required>
+                </td>
+               
+            </tr>
+            <tr>
+                <td style="color:white"><label for="name">所在城市： </label></td>
+                <td > <select class="form-control" id="Provice" name="Provice">
+    @foreach (string a in @ViewBag.Provice)
+    {
+        <option value=@a>@a</option>
+    }
+</select>
+
+                <td width="150px">
+                    <select class="form-control" id="City" name="City">
+                        @foreach (string a in @ViewBag.Provice)
+                        {
+                            <option value=@a>@a</option>
+                        }
+                    </select></td> 
+            </tr>
+            <tr>
+                <td style="color:white"><label for="name">QQ&nbsp;&nbsp;&nbsp;&nbsp;号： </label></td>
+                <td> <input name="QQ" type="text" class="form-control" placeholder="QQ号" required></td>
+                <td></td>  
+            </tr>
+            <tr>
+                <td style="color:white"><label for="name">联系方式： </label></td>
+                <td> <input name="Phone" type="text" class="form-control" placeholder="联系电话" required></td>
+                <td></td>  
+            </tr>
+            <tr>        
+                <td> 
+                    <button class="btn btn-success btn-lg" type="submit" style="margin-top:15px;">注册</button>
+                </td>
+                <td>
+                @using (Html.BeginForm("Index", "Login", FormMethod.Post))
+                 {
+                       <button class="btn btn-success btn-lg" type="submit" style="margin-top:15px;">返回</button>
+                } </td>
+                <td></td>
+            </tr>
+        </table>  
+}
+        </div>
+    <script>
+        $("#Provice").change(function () {
+            //debugger;
+            var component = this.value;
+            $.post(
+                "/Ajax/GetLanguage.ashx",
+                { action: "GetLanguage", ComName: component },
+                function (date) {
+                    if (date != "") {
+                        var msg = date.toString().split("|");
+                        document.getElementById("City").options.length = 0;
+                        for (var i = 0; i < msg.length; i++) {
+                            document.getElementById("City").options.add(new Option(msg[i], msg[i]));
+                        }
+                        
+                    }
+                });
+        })
+    </script>
+  
+</body>
+</html>

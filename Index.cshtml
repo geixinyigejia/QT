@@ -1,0 +1,102 @@
+﻿@model GetLBAMVC.Models.PublishTasks
+
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)        
+   
+        <table class="col-sm-offset-1 col-sm-5" style="margin-top:20px;font-size:18px">
+
+           <tr>  
+               <td>            
+            <div class="editor-label">
+            @Html.LabelFor(model => model.links):                
+          </div>
+               </td>
+              <td>
+                  <div>                      
+                      <input id="Single" type="radio" name="links" value="单链接" checked/>单链接
+           <input id="Double" type="radio" name="links" value="双链接" />双链接                           
+            @Html.Hidden("links", ViewBag.links as string)          
+        </div>
+              </td>        
+           </tr>
+        
+           <tr>
+               
+               <td>
+                    <div class="editor-label">
+                    @Html.LabelFor(model => model.TaskPrice):
+        </div>
+               </td>
+               <td>
+                 <input  type="text" class="form-control" placeholder="请输入刷单的金额！" />          
+            @Html.ValidationMessageFor(model => model.TaskPrice)       
+               </td>
+           </tr>
+
+           <tr>
+               
+               <td>                   
+    <div class="editor-label">
+            @Html.LabelFor(model => model.wangwangxiaohao):
+        </div>
+               </td>
+               <td>
+                    <div>
+          <input id="default" type="radio" name="wangwangxiaohao" value="默认" checked/>默认(1-3星)
+           <input id="blankHao" type="radio" name="wangwangxiaohao" value="白号" />白号 
+           <input id="Sixing" type="radio" name="wangwangxiaohao" value="四星"/>四星
+           <input id="ZuanHao" type="radio" name="wangwangxiaohao" value="钻号" />钻号 
+             @Html.Hidden("wangwangxiaohao", ViewBag.wangwangxiaohao as string)                        
+        </div>
+               </td>
+           </tr>
+           
+           <tr>
+           <td>
+               <div class="editor-label">
+                @Html.LabelFor(model => model.TaskType):
+              </div>
+               </td>
+               <td>
+                    <div>
+                     <input id="Computer" type="radio" name="TaskType" value="电脑" checked/>电脑
+                     <input id="Phone" type="radio" name="TaskType" value="手机" />手机 
+                     <input id="ComputerPhone" type="radio" name="TaskType" value="电脑手机"/>电脑手机
+                       @Html.Hidden("TaskType", ViewBag.TaskType as string)
+                     </div>
+               </td>
+               </tr>
+
+           <tr>                
+               <td>
+                   <div class="editor-label">
+            @Html.LabelFor(model => model.Comment):
+        </div>
+               </td>
+               <td>                    
+                 <textarea class="form-control" rows="3" name="Comment";id="Comment"></textarea>            
+               </td>
+           </tr>
+
+            <tr>
+                <td>
+                 </td>
+                <td></td>
+            </tr>
+           
+            <tr>
+                <td>
+
+                </td>
+                <td style="margin-top:10px">                   
+            <input type="submit" value="发布任务" />
+             
+                </td>
+            </tr>
+
+      </table>            
+        
+}
+

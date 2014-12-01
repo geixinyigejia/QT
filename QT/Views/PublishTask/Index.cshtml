@@ -1,0 +1,55 @@
+﻿
+<form class="form-horizontal" role="form" style="margin-top:35px;" method="post">
+
+   <div class="form-group">
+      <label for="firstname" class="col-sm-2 control-label">链&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp接：</label>
+      <div class="col-sm-10">
+        <input id="Single" type="radio" name="links" value="单链接" checked/>单链接
+           <input id="Double" type="radio" name="links" value="双链接" />双链接                           
+           @* @Html.Hidden("links", ViewBag.links as string)*@
+      </div>
+   </div>
+
+   <div class="form-group">
+      <label for="lastname" class="col-sm-2 control-label">价&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp格：</label>
+      <div class="col-sm-10">
+         <input type="text" class="form-control" id="TaskPrice"  name="TaskPrice"
+            placeholder="请输入刷单的金额">
+      </div>
+   </div>
+
+   <div class="form-group">
+      <label for="firstname" class="col-sm-2 control-label">要求小号：</label>
+      <div class="col-sm-10">
+         <input id="default" type="radio" name="wangwangxiaohao" value="默认" checked/>默认(1-3星)
+           <input id="blankHao" type="radio" name="wangwangxiaohao" value="白号" />白号 
+           <input id="Sixing" type="radio" name="wangwangxiaohao" value="四星"/>四星
+           <input id="ZuanHao" type="radio" name="wangwangxiaohao" value="钻号" />钻号 
+            @* @Html.Hidden("wangwangxiaohao", ViewBag.wangwangxiaohao as string)*@
+      </div>
+   </div>
+
+    <div class="form-group">
+      <label for="firstname" class="col-sm-2 control-label">任务类别：</label>
+      <div class="col-sm-10">
+        <input id="Computer" type="radio" name="TaskType" value="电脑" checked/>电脑
+        <input id="Phone" type="radio" name="TaskType" value="手机" />手机 
+        <input id="ComputerPhone" type="radio" name="TaskType" value="电脑手机"/>电脑手机
+       @*  @Html.Hidden("TaskType", ViewBag.TaskType as string)*@
+      </div>
+   </div>
+
+    <div class="form-group">
+      <label for="firstname" class="col-sm-2 control-label">备&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注：</label>
+      <div class="col-sm-10">
+          <textarea class="form-control" rows="3" name="Comment";id="Comment"  placeholder="请输入刷单的具体要求，如：主款浏览5分钟，假聊等"></textarea>
+      </div>
+   </div>
+
+   <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+         <button type="submit" class="btn btn-default">发布</button>
+      </div>
+   </div>
+</form>
+

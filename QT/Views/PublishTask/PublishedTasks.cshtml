@@ -1,0 +1,82 @@
+﻿@model IEnumerable<GetLBAMVC.Models.PublishTasks>
+@using PagedList;
+@using PagedList.Mvc;          
+          
+<div class="table-responsive" style="margin-top:35px;margin-left:35px">
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.PublishUserName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.city)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.links)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.wangwangxiaohao)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TaskPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TaskType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.charges)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Comment)
+                </th>
+
+                <th>任务操作</th>
+            </tr>
+        </thead>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PublishUserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.city)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.links)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.wangwangxiaohao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaskPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaskType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.charges)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comment)
+                </td>
+               
+                <td></td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+    @{
+        var data = Model as IPagedList<GetLBAMVC.Models.PublishTasks>;
+    }
+<div style="margin-left:35px;">
+    @Html.PagedListPager(list: data,
+        generatePageUrl: page => Url.Action("PublishedTasks", new { p = page }))
+
+</div>

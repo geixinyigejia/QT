@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="~/Scripts/jquery-2.1.1.min.js"></script>   
+    <script src="~/Scripts/bootstrap.js"></script>    
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+   
+    <title>欢迎使用QT32667248快刷平台</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>  
+    <div class="navbar navbar-default  navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">  
+           <img src="../../Picture/QQ20141116150744.png" alt="" />
+            </div>          
+        </div>
+        </div>
+
+
+        <div class="container" style="margin-top:60px">
+            <div>
+                <ul class="nav nav-justified">
+                   <li>@Html.ActionLink("首页", "Index", "Home")</li>
+                    <li>@Html.ActionLink("电脑", "Index", "Computer")</li>
+                   <li>@Html.ActionLink("手机", "Index", "Phone")</li>
+                    <li>@Html.ActionLink("手机电脑", "Index", "PhoneComputer")</li>  
+                    <li>@Html.ActionLink("平台规则", "Index", "Rules")</li>  
+                     <li>@Html.ActionLink("联系我们", "Index", "Contact")</li> 
+                                    
+                </ul>
+            </div>
+        </div>
+
+    <div class="container" style="margin-top:5px">
+        <div class="col-xs-6 col-sm-2">
+             <div class="list-group" style="margin-top:10px">                
+                <li class="list-group-item" style="text-align:left;background-color: #3385FF;color: #fff""><b>&nbsp&nbsp&nbsp您好！陈莉</b></li>
+                  <li class="list-group-item" style="text-align:left;">我的余额：@Html.ActionLink("刷新", "Index", "Home", null, new { style="color:#3385FF"})</li>
+                  <li class="list-group-item" style="text-align:left;">充值&nbsp&nbsp提现</li>                 
+              <li class="list-group-item" style="text-align:left;color:black"><b>每月完成的任务数量</b></li>
+                <li class="list-group-item" style="text-align:left;">&nbsp&nbsp已接任务：</li>
+                  <li class="list-group-item" style="text-align:left;">&nbsp&nbsp发布任务：</li>                         
+            </div> 
+
+
+            <div class="list-group" style="margin-top:20px">
+                <li class="list-group-item" style="text-align:center;background-color: #3385FF;color: #fff"><b>我发布的任务 </b></li>
+                <a href="/PublishTask/Index" class="list-group-item">我要发布</a>
+                 <a href="/PublishTask/PublishedTasks" class="list-group-item">已经发布</a>
+                 <a href="/PublishTask/ReceviedByPepole" class="list-group-item">已被接手</a>
+                 <a href="/PublishTask/WaitToBeDone" class="list-group-item">等待完成</a>
+                <a href="/PublishTask/DoneTasks" class="list-group-item">完成任务</a>
+                <a href="/PublishTask/DeleteTasks" class="list-group-item">删除任务</a> 
+                
+                </div>
+
+            <div class="list-group" style="margin-top:15px">
+                <li class="list-group-item" style="text-align:center;background-color: #3385FF;color: #fff""><b>我已接到的任务 </b></li>
+                <a href="/ReceiveTask/Index" class="list-group-item">接手任务</a>
+                <a href="/ReceiveTask/WaitToBeDone" class="list-group-item">等待完成</a>
+                <a href="/ReceiveTask/DoneTasks" class="list-group-item">完成任务</a>   
+             </div>
+            
+            <div class="list-group" style="margin-top:15px">   
+                <li class="list-group-item" style="text-align:center;background-color: #3385FF;color: #fff""><b>个人中心 </b></li>
+                <a href="/User/Index" class="list-group-item">个人资料</a>
+                <a href="/User/TaskRecords" class="list-group-item">资金记录</a>
+                <a href="/User/ChangePassword" class="list-group-item">修改密码</a>
+                <a href="/User/Suggestions" class="list-group-item" style="color:red">反馈建议</a>                
+            </div>
+        </div>
+            <div class="col-xs-12 col-sm-10">              
+               @RenderSection("featured", required: false)        
+                    <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>   
+
+            </div>          
+           
+        </div>
+
+        <div>
+            <footer>
+                <p>&copy; 版权所有     QT32667248  快刷平台  <br/>2012-@DateTime.Now.Year! <a href="http://asp.net/mvc">ASP.NET MVC 4</p>
+            </footer>
+        </div>
+       
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+</body>
+</html>
