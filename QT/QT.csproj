@@ -152,6 +152,7 @@
     </Compile>
     <Compile Include="Models\commonContext.cs" />
     <Compile Include="Models\PublishTasks.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

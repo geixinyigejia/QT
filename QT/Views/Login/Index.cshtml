@@ -15,20 +15,20 @@
 <body>
     <img src="~/Picture/1221102.jpg" style="width: 100%" />
     <div style="position:absolute; left: 600px; top: 300px;text-align:center" >
-       @using (Html.BeginForm("Index","Home",FormMethod.Post))
+       @using (Html.BeginForm("Index", "Login", FormMethod.Post))
        {
         <h3>请登录或注册： </h3>    
         <table>   
             <tr>
                 <td><label for="name">用户名： </label></td>
-                <td> <input type="text" class="form-control" placeholder="用户名" required autofocus></td>
+                <td> <input name="UserName" type="text" class="form-control" placeholder="用户名" required autofocus></td>
             </tr>
    <tr>
        <td>
             <label>密 码：</label>
        </td>
        <td>
-            <input type="password" class="form-control" placeholder="密码" required>
+           <input name="Password" type="password" class="form-control" placeholder="密码" required>
        </td>
    </tr>    
            

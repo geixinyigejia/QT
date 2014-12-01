@@ -39,8 +39,8 @@
     <div class="container" style="margin-top:5px">
         <div class="col-xs-6 col-sm-2">
              <div class="list-group" style="margin-top:10px">                
-                <li class="list-group-item" style="text-align:left;background-color: #3385FF;color: #fff""><b>&nbsp&nbsp&nbsp您好！陈莉</b></li>
-                  <li class="list-group-item" style="text-align:left;">我的余额：@Html.ActionLink("刷新", "Index", "Home", null, new { style="color:#3385FF"})</li>
+                <li class="list-group-item" style="text-align:left;background-color: #3385FF;color: #fff""><b>&nbsp&nbsp&nbsp您好！@ViewBag.CurrentUser</b></li>
+                  <li class="list-group-item" style="text-align:left;">我的余额：@ViewBag.points  @Html.ActionLink("刷新", "Index", "Home", null, new { style="color:#3385FF"})</li>
                   <li class="list-group-item" style="text-align:left;">充值&nbsp&nbsp提现</li>                 
               <li class="list-group-item" style="text-align:left;color:black"><b>每月完成的任务数量</b></li>
                 <li class="list-group-item" style="text-align:left;">&nbsp&nbsp已接任务：</li>
