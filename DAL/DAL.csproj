@@ -42,6 +42,13 @@
     <Compile Include="DALCommon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="sql\CityDistrict.sql" />
+    <Content Include="sql\PublishTasks.sql" />
+    <Content Include="sql\ReceivedTasks.sql" />
+    <Content Include="sql\Users.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

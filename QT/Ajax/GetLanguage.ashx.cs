@@ -17,8 +17,9 @@ namespace GetLBAMVC.Ajax
     /// </summary>
     public class GetLanguage : IHttpHandler, IRequiresSessionState
     {
-        private static string DBName = "Twan";
-        public static string connString = "Data Source=(local);Integrated Security=True";
+        private static string DBName = "QT";
+        //public static string connString = "Data Source=(local);Integrated Security=True";
+        public static string connString = "Data Source='JENNY\\SQLEXPRESS';Integrated Security=True";
 
         private HttpRequest request = null;
         private HttpResponse response = null;

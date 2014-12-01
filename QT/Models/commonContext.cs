@@ -10,8 +10,8 @@ namespace GetLBAMVC.Models
 {
     public class commonContext
     {
-        public static string connString = "Data Source=(local);Integrated Security=True";
-         //public static string connString = "Data Source='JENNY\\SQLEXPRESS';Integrated Security=True";
+        //public static string connString = "Data Source=(local);Integrated Security=True";
+        public static string connString = "Data Source='JENNY\\SQLEXPRESS';Integrated Security=True";
      
         public static SqlConnection connectonToMSSQL()
         {
