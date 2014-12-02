@@ -118,6 +118,15 @@ namespace GetLBAMVC.Models
             set;
         }
 
+        /// <summary>
+        /// 账户类型，是普通用户，还是管理员
+        /// </summary>
+        public string UserType
+        {
+            get;
+            set;
+        }
+
     }
 
     public class Register

@@ -10,11 +10,12 @@ CREATE TABLE [dbo].[QT_USER](
 	[QQ] [bigint] NOT NULL,
 	[MobilePhone] [bigint] NULL,
 	[RegistTime] [datetime2](7) NULL,
-	[Checkstatus] [bit] NULL,
+	[Checkstatus] [nvarchar](20) NOT NULL,
 	[Password] [nvarchar](20) NULL,
 	[LastLogonTime] [datetime2](7) NULL,
-	[Acountstatus] [bit] NULL,
+	[Acountstatus] [nvarchar](20) NOT NULL,
 	[AcountStartTime] [datetime2](7) NULL,
+	[UserType] [nvarchar](20) NULL
 )
 
 GO

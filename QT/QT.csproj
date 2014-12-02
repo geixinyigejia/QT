@@ -137,6 +137,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ComputerController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -156,6 +157,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\multiple-select.css" />
     <Content Include="Picture\1221101.jpg" />
     <Content Include="Picture\1221102.jpg" />
     <Content Include="Picture\intlTEST2.jpg" />
@@ -237,6 +239,7 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts\jquery.multiple.select.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -281,6 +284,8 @@
     <Content Include="Views\PublishTask\Index.cshtml" />
     <Content Include="Views\PublishTask\PublishedTasks.cshtml" />
     <Content Include="Views\Rules\Index.cshtml" />
+    <Content Include="Views\Admin\UserManagment.cshtml" />
+    <Content Include="Views\Admin\ChargeManagment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

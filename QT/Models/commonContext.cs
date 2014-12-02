@@ -21,5 +21,18 @@ namespace GetLBAMVC.Models
             return Sqlconn;
 
         }
+
+     public    enum CheckStaus
+        {
+            待审核,
+           审核通过
+        };
+
+   public  enum AcountStatus
+        {
+            禁用,
+           正常
+        } ;
     }
 }
+    

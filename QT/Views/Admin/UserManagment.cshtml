@@ -1,0 +1,46 @@
+﻿
+<link href="~/Content/multiple-select.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.multiple.select.js"></script>
+
+
+
+<table style="text-align: left;">
+    @Html.Hidden("UsersID", ViewBag.UsersID as string[])
+    <tr>
+        <td style="color: #428bca">请选择用户：</td>
+        <td>
+    <select id="ms" multiple="multiple" style="width: 155px;">
+    @foreach (string a in @ViewBag.Allusers)
+    {
+        <option value=@a>@a</option>
+    }
+</select>
+        <td>
+        <td>@Html.CheckBox("审核通过", (bool)ViewBag.Verify)</td>         
+        <td style="color:red">审核通过</td>
+        <td>@Html.CheckBox("设置为管理员", (bool)ViewBag.Grant)</td>
+        <td style="color:red">设置为管理员</td>
+        <td>
+            <input type="submit" value="执行" style="margin-left: 15px; color: #428bca; border: solid thin  #428bca" />
+        </td>
+    </tr>
+</table>     
+
+<script>
+    $("#ms").multipleSelect({
+        placeholder: "请选择用户！",
+        filter: true
+    });
+
+    $("#ms").change(function () {
+        $("#UsersID").val($("#ms").multipleSelect('getSelects'));
+    });
+
+
+    if ($("#UsersID")[0].value == "") {
+        $("#ms").multipleSelect('checkAll');
+    }
+    else {
+        $("#ms").multipleSelect('setSelects', $("#UsersID")[0].value.split(","));
+    };
+    </script>

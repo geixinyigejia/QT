@@ -99,17 +99,18 @@ namespace GetLBAMVC.Controllers
 
         [HttpPost]
         //public ActionResult RegCheck(string name, string password, string Phone, string QQ, string City = "北京市", string Provice = "北京市")
-        public ActionResult RegCheck(User user,string City = "北京市", string Provice = "北京市")
+        public ActionResult RegCheck(User user, string City = "北京市", string Provice = "北京市")
         {
             if (ModelState.IsValid)
             {
                 user.RegistTime = DateTime.Now;
                 user.LastLogonTime = DateTime.Now;
-                user.Checkstatus = CheckStaus.待审核.ToString();
-                user.Acountstatus = AcountStatus.禁用.ToString();
+                user.Checkstatus = commonContext.CheckStaus.待审核.ToString();
+                user.Acountstatus = commonContext.AcountStatus.禁用.ToString();
                 user.AcountStartTime = DateTime.Now;
-                user.city = Provice +""+ City;
+                user.city = Provice + "" + City;
                 user.points = 0;
+                user.UserType = "普通会员";
 
                 CreateUser(user);
             }
@@ -117,11 +118,18 @@ namespace GetLBAMVC.Controllers
             return View("Index");
         }
 
+        public ActionResult LogOut()
+        {
+            FormsAuthentication.SignOut();
+            Session.Clear();
+
+            return RedirectToAction("Index", "Login");
+        }
         private void CreateUser(User user)
         {
             SqlConnection sqlconn = commonContext.connectonToMSSQL();
 
-            string sqlCommand = string.Format(@"use {0}; insert QT_USER(UserName,Password,city,QQ,MobilePhone,RegistTime,Checkstatus,LastLogonTime,Acountstatus,AcountStartTime,points) values('{1}','{2}',N'{3}',{4},{5},'{6}',N'{7}','{8}',N'{9}','{10}',{11});", DBName, user.UserName, user.Password, user.city, user.QQ, user.MobilePhone,user.RegistTime,user.Checkstatus,user.LastLogonTime,user.Acountstatus,user.AcountStartTime,user.points);
+            string sqlCommand = string.Format(@"use {0}; insert QT_USER(UserName,Password,city,QQ,MobilePhone,RegistTime,Checkstatus,LastLogonTime,Acountstatus,AcountStartTime,points,UserType) values('{1}','{2}',N'{3}',{4},{5},'{6}',N'{7}','{8}',N'{9}','{10}',{11},N'{12}');", DBName, user.UserName, user.Password, user.city, user.QQ, user.MobilePhone, user.RegistTime, user.Checkstatus, user.LastLogonTime, user.Acountstatus, user.AcountStartTime, user.points, user.UserType);
             sqlconn.Open();
 
             SqlCommand cmd = new SqlCommand(sqlCommand, sqlconn);
@@ -138,7 +146,7 @@ namespace GetLBAMVC.Controllers
                 sqlconn.Close();
             }
         }
-        
+
         private bool CheckUserLogonStatus(Logon user)
         {
             List<Logon> users = new List<Logon>();
@@ -176,16 +184,6 @@ namespace GetLBAMVC.Controllers
 
         }
 
-        enum CheckStaus
-        {
-            待审核,
-           审核通过
-        };
-
-    enum AcountStatus
-        {
-            禁用,
-           正常
-        } ;
     }
 }
+

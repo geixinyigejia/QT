@@ -32,7 +32,7 @@
             </div>
             <div class="pull-right" style="margin-top:80px;">
                 <ul id="menu">
-                    <li>欢迎用户，@ViewBag.CurrentUser |@Html.ActionLink("注销", "LogOut", "User") |<label id="spanTime"></label> </li>
+                    <li>欢迎用户，@ViewBag.CurrentUser |@Html.ActionLink("注销", "LogOut", "Login") |<label id="spanTime"></label> </li>
                 </ul>
             </div> 
                  
@@ -94,8 +94,8 @@
             </div>
             <div class="list-group" style="margin-top:15px;" >
                 <li class="list-group-item" style="text-align:center;background-color: #3385FF;color: #fff" "><b>管理员中心 </b></li>
-                <a href="/User/Index" class="list-group-item">用户管理</a>
-                <a href="/User/TaskRecords" class="list-group-item">资金管理</a>              
+                <a href="/Admin/UserManagment" class="list-group-item">用户管理</a>
+                <a href="/Admin/ChargeManagment" class="list-group-item">资金管理</a>              
                
             </div>
         </div>
