@@ -11,13 +11,31 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+    <script type="text/javascript">
+    function ShowTime() {
+        var time = new Date();
+        var temp = time.toLocaleString();
+        document.getElementById("spanTime").innerText = temp;
+        setTimeout(ShowTime, 60000);
+    }
+    onload = ShowTime;
+    </script>
+
+
+
 </head>
 <body>  
     <div class="navbar navbar-default  navbar-fixed-top">
         <div class="container">
-            <div class="navbar-header">  
-           <img src="../../Picture/QQ20141116150744.png" alt="" />
-            </div>          
+            <div class="pull-left">
+                <img src="../../Picture/QQ20141116150744.png" alt="" />
+            </div>
+            <div class="pull-right" style="margin-top:80px;">
+                <ul id="menu">
+                    <li>欢迎用户，@ViewBag.CurrentUser |@Html.ActionLink("注销", "LogOut", "User") |<label id="spanTime"></label> </li>
+                </ul>
+            </div> 
+                 
         </div>
         </div>
 
@@ -31,6 +49,7 @@
                     <li>@Html.ActionLink("手机电脑", "Index", "PhoneComputer")</li>  
                     <li>@Html.ActionLink("平台规则", "Index", "Rules")</li>  
                      <li>@Html.ActionLink("联系我们", "Index", "Contact")</li> 
+                     
                                     
                 </ul>
             </div>
@@ -72,6 +91,12 @@
                 <a href="/User/TaskRecords" class="list-group-item">资金记录</a>
                 <a href="/User/ChangePassword" class="list-group-item">修改密码</a>
                 <a href="/User/Suggestions" class="list-group-item" style="color:red">反馈建议</a>                
+            </div>
+            <div class="list-group" style="margin-top:15px;" >
+                <li class="list-group-item" style="text-align:center;background-color: #3385FF;color: #fff" "><b>管理员中心 </b></li>
+                <a href="/User/Index" class="list-group-item">用户管理</a>
+                <a href="/User/TaskRecords" class="list-group-item">资金管理</a>              
+               
             </div>
         </div>
             <div class="col-xs-12 col-sm-10">              
