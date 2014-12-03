@@ -15,9 +15,7 @@ namespace GetLBAMVC.Controllers
     {
         //
         // GET: /Admin/
-        private static string DBName = "QT";
-        //public static string connString = "Data Source=(local);Integrated Security=True";
-        public static string connString = "Data Source='JENNY\\SQLEXPRESS';Integrated Security=True";
+        private static string DBName = "QT";       
 
         public ActionResult UserManagment()
         {

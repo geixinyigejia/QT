@@ -10,6 +10,9 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
 
+//add using
+using GetLBAMVC.Models;
+
 namespace GetLBAMVC.Ajax
 {
     /// <summary>
@@ -17,9 +20,7 @@ namespace GetLBAMVC.Ajax
     /// </summary>
     public class GetLanguage : IHttpHandler, IRequiresSessionState
     {
-        private static string DBName = "QT";
-        //public static string connString = "Data Source=(local);Integrated Security=True";
-        public static string connString = "Data Source='JENNY\\SQLEXPRESS';Integrated Security=True";
+        private static string DBName = "QT";        
 
         private HttpRequest request = null;
         private HttpResponse response = null;
@@ -49,7 +50,7 @@ namespace GetLBAMVC.Ajax
             if (!string.IsNullOrEmpty(comName))
             {
                 string sqlCommand = string.Format(@"use {0}; select CityName from TB_City where ProvinceID in (select ID from TB_Province where ProvinceName like   N'{1}')", DBName, comName);
-                SqlConnection sqlconn =   new SqlConnection(connString);
+                SqlConnection sqlconn = commonContext.connectonToMSSQL();
                 sqlconn.Open();
                 SqlCommand cmd = new SqlCommand(sqlCommand, sqlconn);
                 SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);

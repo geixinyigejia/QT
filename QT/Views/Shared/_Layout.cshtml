@@ -28,11 +28,11 @@
     <div class="navbar navbar-default  navbar-fixed-top">
         <div class="container">
             <div class="pull-left">
-                <img src="../../Picture/QQ20141116150744.png" alt="" />
+                <img src="../../Picture/intlTEST2.jpg" alt="" />
             </div>
             <div class="pull-right" style="margin-top:80px;">
-                <ul id="menu">
-                    <li>欢迎用户，@ViewBag.CurrentUser |@Html.ActionLink("注销", "LogOut", "Login") |<label id="spanTime"></label> </li>
+                <ul id="menu" style="list-style-type: none">
+                    <li style="text-decoration: none;"><a>欢迎用户，</a>@ViewBag.CurrentUser |@Html.ActionLink("注销", "LogOut", "Login") |<label id="spanTime"></label> </li>
                 </ul>
             </div> 
                  
@@ -92,11 +92,11 @@
                 <a href="/User/ChangePassword" class="list-group-item">修改密码</a>
                 <a href="/User/Suggestions" class="list-group-item" style="color:red">反馈建议</a>                
             </div>
-            <div class="list-group" style="margin-top:15px;" >
+            <div class="list-group" style="margin-top:15px; display:none" id="Mgt">
                 <li class="list-group-item" style="text-align:center;background-color: #3385FF;color: #fff" "><b>管理员中心 </b></li>
                 <a href="/Admin/UserManagment" class="list-group-item">用户管理</a>
-                <a href="/Admin/ChargeManagment" class="list-group-item">资金管理</a>              
-               
+                <a href="/Admin/ChargeManagment" class="list-group-item">资金管理</a>
+
             </div>
         </div>
             <div class="col-xs-12 col-sm-10">              
@@ -115,6 +115,16 @@
             </footer>
         </div>
        
+    @{string IsAdmin = ViewBag.UserType.ToString();}
+    <script>
+        if ("管理员" == "@IsAdmin" || "超级管理员" == "@IsAdmin") {
+            $('#Mgt').show();
+        }
+        else {
+            $('#Mgt').hide();
+        }
+    </script>
+
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
         @RenderSection("scripts", required: false)

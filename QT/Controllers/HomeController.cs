@@ -21,6 +21,7 @@ namespace GetLBAMVC.Controllers
             ViewBag.CurrentUser = User.Identity.Name;
             User currentUser=GetUserByUserName(User.Identity.Name);
             ViewBag.points = currentUser.points;
+            ViewBag.UserType = currentUser.UserType;
 
             return View();
         }
