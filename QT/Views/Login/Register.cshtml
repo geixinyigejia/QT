@@ -1,6 +1,7 @@
 ﻿@{
     Layout = null;
 }
+@model GetLBAMVC.Models.Register
 
 <!DOCTYPE html>
 
@@ -32,9 +33,23 @@
                 </td>
                 <td>
                     <input name="password" type="password" class="form-control" placeholder="密码" required>
+                    @*@Html.EditorFor(model => model.Password, new { @class = "form-control" })*@
+                    @*@Html.ValidationMessageFor(model => model.Password)*@
                 </td>
                
             </tr>
+
+            <tr style="margin-top:10px;">
+                <td>
+                    <label style="color:white">确认密码：</label>
+                </td>
+                <td>
+                    <input name="ConfirmPassword" type="password" class="form-control" placeholder="确认密码" required>
+                    @*@Html.ValidationMessageFor(model => model.ConfirmPassword)*@
+                </td>
+
+            </tr>
+
             <tr>
                 <td style="color:white"><label for="name">所在城市： </label></td>
                 <td > <select class="form-control" id="Provice" name="Provice">
@@ -62,6 +77,18 @@
                 <td> <input name="MobilePhone" type="text" class="form-control" placeholder="联系电话" required></td>
                 <td></td>  
             </tr>
+
+            <tr>
+                <td style="color:white"><label for="name">验证&nbsp;&nbsp;码： </label></td>
+                <td> <input name="VerificationCode" type="text" class="form-control" placeholder="验证码" required>
+                @Html.ValidationMessageFor(model => model.VerificationCode)
+                </td>
+                 <td>   <img id="verificationcode" title="点击刷新" src="@Url.Action("VerificationCode")" style="cursor:pointer" /></td>
+                   
+                
+               
+            </tr>
+
             <tr>        
                 <td> 
                     <button class="btn btn-success btn-lg" type="submit" style="margin-top:15px;">注册</button>
@@ -94,6 +121,11 @@
                     }
                 });
         })
+              
+    $("#verificationcode").click(function () {
+        $("#verificationcode").attr("src", "@Url.Action("VerificationCode")?" + new Date());
+    })
+</script>
     </script>
   
 </body>
