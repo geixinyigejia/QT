@@ -1,4 +1,4 @@
-USE [QT]
+﻿USE [QT]
 GO
 
 CREATE TABLE [dbo].[PublishTasks](
@@ -20,3 +20,7 @@ CREATE TABLE [dbo].[PublishTasks](
 GO
 
 
+
+use QT; 
+insert PublishTasks(PublishUserName,links,wangwangxiaohao,TaskPrice,charges,Comment,city,PublishTime,CompleteTime,TaskType ) 
+values('admin',N'单链接',N'默认','123','0',N'测试使用',N'北京市北京市','2014/12/17 12:28:25','2014/12/17 12:28:25',N'电脑');

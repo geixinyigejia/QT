@@ -58,3 +58,13 @@
 <p>注：以上所有解释权归QT3688所属！</p>
 
     </div>
+
+@{string IsAdmin = System.Web.HttpContext.Current.Session["UserType"].ToString();}
+<script>
+        if ("管理员" == "@IsAdmin" || "超级管理员" == "@IsAdmin") {
+            $('#Mgt').show();
+        }
+        else {
+            $('#Mgt').hide();
+        }
+</script>

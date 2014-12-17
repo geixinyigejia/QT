@@ -18,11 +18,12 @@ namespace GetLBAMVC.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.CurrentUser = User.Identity.Name;
+            Session["UserName"] = User.Identity.Name;
             User currentUser=GetUserByUserName(User.Identity.Name);
-            ViewBag.points = currentUser.points;
+            //ViewBag.points = currentUser.points;
+            Session["points"] = currentUser.points;
             ViewBag.UserType = currentUser.UserType;
-
+            Session["UserType"]=currentUser.UserType;
             return View();
         }
 
@@ -51,6 +52,15 @@ namespace GetLBAMVC.Controllers
             }
             reader.Close();
             return personal;
+        }
+
+        public JsonResult GetTestData()
+        {
+            Models.User  user= GetUserByUserName(User.Identity.Name);
+            Session["points"] = user.points;
+            return Json(
+                new { points=user.points }
+            );
         }
         
     }

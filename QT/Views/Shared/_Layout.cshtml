@@ -21,7 +21,11 @@
     onload = ShowTime;
     </script>
 
-
+    @{
+        var UserName = System.Web.HttpContext.Current.Session["UserName"].ToString();
+        var points = System.Web.HttpContext.Current.Session["points"].ToString();
+     
+      }
 
 </head>
 <body>  
@@ -32,7 +36,7 @@
             </div>
             <div class="pull-right" style="margin-top:80px;">
                 <ul id="menu" style="list-style-type: none">
-                    <li style="text-decoration: none;">欢迎用户，@ViewBag.CurrentUser |@Html.ActionLink("注销", "LogOut", "Login") |<label id="spanTime"></label> </li>
+                    <li style="text-decoration: none;">欢迎用户，@UserName |@Html.ActionLink("注销", "LogOut", "Login") |<label id="spanTime"></label> </li>
                 </ul>
             </div> 
                  
@@ -58,8 +62,8 @@
     <div class="container" style="margin-top:5px">
         <div class="col-xs-6 col-sm-2">
              <div class="list-group" style="margin-top:10px">                
-                <li class="list-group-item" style="text-align:left;background-color: #3385FF;color: #fff""><b>&nbsp&nbsp&nbsp您好！@ViewBag.CurrentUser</b></li>
-                  <li class="list-group-item" style="text-align:left;">我的余额：@ViewBag.points  @Html.ActionLink("刷新", "Index", "Home", null, new { style="color:#3385FF"})</li>
+                <li class="list-group-item" style="text-align:left;background-color: #3385FF;color: #fff""><b>&nbsp&nbsp&nbsp您好！@UserName</b></li>
+                  <li class="list-group-item" style="text-align:left;">我的余额：<label id="lblMsg">@points</label> <a href="#" style="color:#3385FF" onclick="Refresh();">刷新</a></li>
                   <li class="list-group-item" style="text-align:left;">充值&nbsp&nbsp提现</li>                 
               <li class="list-group-item" style="text-align:left;color:black"><b>每月完成的任务数量</b></li>
                 <li class="list-group-item" style="text-align:left;">&nbsp&nbsp已接任务：</li>
@@ -115,7 +119,7 @@
             </footer>
         </div>
        
-    @{string IsAdmin = ViewBag.UserType.ToString();}
+    @{string IsAdmin = System.Web.HttpContext.Current.Session["UserType"].ToString();}
     <script>
         if ("管理员" == "@IsAdmin" || "超级管理员" == "@IsAdmin") {
             $('#Mgt').show();
@@ -123,6 +127,17 @@
         else {
             $('#Mgt').hide();
         }
+
+        function Refresh() {
+            $.ajax({
+                url: '@Url.Action("GetTestData","Home")',
+                type: "POST",
+                success: function (result) {
+                    $("#lblMsg").text(result.points);
+                }
+            });
+        }
+
     </script>
 
         @Scripts.Render("~/bundles/jquery")
