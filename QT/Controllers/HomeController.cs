@@ -24,6 +24,9 @@ namespace GetLBAMVC.Controllers
             Session["points"] = currentUser.points;
             ViewBag.UserType = currentUser.UserType;
             Session["UserType"]=currentUser.UserType;
+
+            Session["PublishTaskCount"] = GetPublishTaskByMonth(User.Identity.Name);
+            Session["ReceivedTaskCount"] = 0;
             return View();
         }
 
@@ -62,6 +65,50 @@ namespace GetLBAMVC.Controllers
                 new { points=user.points }
             );
         }
-        
+
+
+        private int GetPublishTaskByMonth(string userName)
+        {
+            int result = -1;
+         
+            SqlConnection sqlconn = commonContext.connectonToMSSQL();
+            string sqlCommand = string.Format(@"use {0};select PublishTasks.PublishUserName,count(PublishTaskID) as PublishTaskCount from dbo.PublishTasks where PublishUserName=N'{1}' and YEAR(PublishTime)=YEAR(GETDATE()) and MONTH(PublishTime)=MONTH(GETDATE()) group by PublishTasks.PublishUserName,YEAR(PublishTime),MONTH(PublishTime)",DBName,userName);
+            sqlconn.Open();
+
+            SqlCommand cmd = new SqlCommand(sqlCommand, sqlconn);
+
+            SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (reader.Read())
+            {
+               result=int.Parse(reader["PublishTaskCount"].ToString());
+            }
+            reader.Close();
+            
+            return result;
+
+            
+        }
+
+        private int GetReceviedTaskByMonth(string userName)
+        {
+            int result = -1;
+           
+            SqlConnection sqlconn = commonContext.connectonToMSSQL();
+            string sqlCommand = string.Format(@"use {0};select PublishTasks.PublishUserName,count(PublishTaskID) as PublishTaskCount from dbo.PublishTasks where PublishUserName=N'{1}' and YEAR(PublishTime)=YEAR(GETDATE()) and MONTH(PublishTime)=MONTH(GETDATE()) group by PublishTasks.PublishUserName,YEAR(PublishTime),MONTH(PublishTime)", DBName, userName);
+            sqlconn.Open();
+
+            SqlCommand cmd = new SqlCommand(sqlCommand, sqlconn);
+
+            SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (reader.Read())
+            {
+                result = int.Parse(reader["PublishTaskCount"].ToString());
+            }
+            reader.Close();
+
+            return result;
+        }
     }
 }

@@ -48,9 +48,11 @@ namespace GetLBAMVC.Controllers
             return View(pagedData);            
         }
 
-        public ActionResult ReceviedByPepole()
+        public ActionResult ReceviedByPepole(int p=1)
         {
-            return View();
+            List<PublishTasks> receviedByPepole = ReceivePushlishTasksByMe();
+            var pagedData = receviedByPepole.ToPagedList(pageNumber: p, pageSize: 20);
+            return View(pagedData);
         }
 
         public ActionResult WaitToBeDone()
@@ -274,7 +276,7 @@ namespace GetLBAMVC.Controllers
             List<PublishTasks> tasks = new List<PublishTasks>();
             SqlConnection sqlconn = commonContext.connectonToMSSQL();
 
-            string sqlCommand = string.Format(@"use {0}; select * from PublishTasks where PublishUserName='{1}'and ReceiverName is not null", DBName, User.Identity.Name);
+            string sqlCommand = string.Format(@"use {0}; select p.ReceiverName,u.city,p.links,p.wangwangxiaohao,p.TaskPrice,p.TaskType,p.Comment,p.charges from PublishTasks p left join QT_USER u on p.ReceiverName=u.UserName where PublishUserName='{1}'and ReceiverName is not null ", DBName, User.Identity.Name);
 
             sqlconn.Open();
 

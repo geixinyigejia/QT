@@ -26,8 +26,8 @@ namespace GetLBAMVC.Controllers
         //
         // GET: /Login/
         private static string DBName = "QT";
-        public static string connString = "Data Source=(local);Integrated Security=True";
-        //public static string connString = "Data Source='JENNY\\SQLEXPRESS';Integrated Security=True";
+        //public static string connString = "Data Source=(local);Integrated Security=True";
+        public static string connString = "Data Source='JENNY\\SQLEXPRESS';Integrated Security=True";
 
         public static SqlConnection connectonToMSSQL()
         {
@@ -93,7 +93,7 @@ namespace GetLBAMVC.Controllers
 
                 while (reader.Read())
                 {
-                    Provices.Add(reader["CityName"].ToString());
+                    Citys.Add(reader["CityName"].ToString());
                 }
                 reader.Close();
             }

@@ -277,8 +277,6 @@
     <Content Include="Views\ReceiveTask\Index.cshtml" />
     <Content Include="Views\ReceiveTask\WaitToBeDone.cshtml" />
     <Content Include="Views\ReceiveTask\DoneTasks.cshtml" />
-    <Content Include="Views\PublishTask\ReceviedByPepole.cshtml" />
-    <Content Include="Views\PublishTask\WaitToBeDone.cshtml" />
     <Content Include="Views\PublishTask\DoneTasks.cshtml" />
     <Content Include="Views\PublishTask\DeleteTasks.cshtml" />
     <Content Include="Views\PublishTask\Index.cshtml" />
@@ -286,6 +284,8 @@
     <Content Include="Views\Rules\Index.cshtml" />
     <Content Include="Views\Admin\UserManagment.cshtml" />
     <Content Include="Views\Admin\ChargeManagment.cshtml" />
+    <Content Include="Views\PublishTask\ReceviedByPepole.cshtml" />
+    <Content Include="Views\PublishTask\WaitToBeDone.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
