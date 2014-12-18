@@ -154,5 +154,13 @@ namespace GetLBAMVC.Models
             }
         }
 
+        /// <summary>
+        /// 任务是否被删除
+        /// </summary>
+        public Boolean IsDeleted
+        {
+            get;
+            set;
+        }
     }
 }

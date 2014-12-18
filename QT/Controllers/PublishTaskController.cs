@@ -26,7 +26,7 @@ namespace GetLBAMVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(PublishTasks publishTasks)
+        public ActionResult Index(PublishTasks publishTasks, string PublishedTasksAcount)
         {
             publishTasks.PublishUserName = User.Identity.Name;
             //get the publisher city
@@ -34,11 +34,12 @@ namespace GetLBAMVC.Controllers
             publishTasks.PublishTime = DateTime.Now;
             publishTasks.CompleteTime = DateTime.Now;
 
+            int publishedTasksAcount = int.Parse(PublishedTasksAcount);
             if (ModelState.IsValid)
             {
-                PublishTask(publishTasks);
-            }          
-            return View();
+                PublishTask(publishTasks, publishedTasksAcount);
+            }
+            return RedirectToAction("PublishedTasks");
         }
 
         public ActionResult PublishedTasks(int p = 1)
@@ -55,21 +56,62 @@ namespace GetLBAMVC.Controllers
             return View(pagedData);
         }
 
-        public ActionResult WaitToBeDone()
+        public ActionResult WaitToBeDone(int p = 1)
         {
-            return View();
+            List<PublishTasks> receviedByPepole = GetAllWaitToBeDoneTasksPublishedByMe(User.Identity.Name);
+            var pagedData = receviedByPepole.ToPagedList(pageNumber: p, pageSize: 20);
+            return View(pagedData);
         }
 
-        public ActionResult DoneTasks()
+        public ActionResult DoneTasks(int p=1)
         {
-            return View();
+            List<PublishTasks> receviedByPepole = GetAllCompletedTasksPublishedByMe(User.Identity.Name);
+            var pagedData = receviedByPepole.ToPagedList(pageNumber: p, pageSize: 20);
+            return View(pagedData);
         }
 
-        public ActionResult DeleteTasks()
+        public ActionResult DeleteTasks(int p=1)
         {
-            return View();
+            List<PublishTasks> PublishedTasksByMe = GetAllDeletePublishTasksByMe(User.Identity.Name);
+            var pagedData = PublishedTasksByMe.ToPagedList(pageNumber: p, pageSize: 20);
+            return View(pagedData); 
+           
         }
 
+
+        /// <summary>
+        /// 删除自己发布的任务
+        /// </summary>
+        /// <param name="publishTaskID"></param>
+        /// <returns></returns>
+        public ActionResult shanchuTask(string publishTaskID)
+        {
+            int PublishTaskID = -1;
+            if (int.TryParse(publishTaskID, out PublishTaskID))
+            {
+            }
+
+            SqlConnection sqlconn = commonContext.connectonToMSSQL();
+
+            string sqlCommand = string.Format(@"use {0};update PublishTasks set IsDeleted=1 where PublishTaskID={1}", DBName, PublishTaskID);
+          
+            sqlconn.Open();
+
+            SqlCommand cmd = new SqlCommand(sqlCommand, sqlconn);
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                sqlconn.Close();
+            }         
+            return RedirectToAction("DeleteTasks");
+        }
 
         /// <summary>
         /// 接受任务处理
@@ -96,7 +138,7 @@ namespace GetLBAMVC.Controllers
 
                 SqlConnection sqlconn = commonContext.connectonToMSSQL();
 
-                string sqlCommand = string.Format(@"use {0};select * from publishTasks where PublishTaskID={1} and ReceiverName is null ;", DBName, PublishTaskID);
+                string sqlCommand = string.Format(@"use {0};select * from publishTasks where PublishTaskID={1} and IsDeleted=0 and ReceiverName=''  ;", DBName, PublishTaskID);
                 sqlconn.Open();
 
                 SqlCommand cmd = new SqlCommand(sqlCommand, sqlconn);
@@ -150,9 +192,38 @@ namespace GetLBAMVC.Controllers
             }
         }
 
+        public ActionResult RefuseTheRecevier(string publishTaskID)
+        {
+            int PublishTaskID = -1;
+            if (int.TryParse(publishTaskID, out PublishTaskID))
+            {
+            }
+
+            SqlConnection sqlconn = commonContext.connectonToMSSQL();
+
+            string sqlCommand = string.Format(@"use {0};update PublishTasks set ReceiverName='NULL' where PublishTaskID={1}", DBName, PublishTaskID);
+
+            sqlconn.Open();
+
+            SqlCommand cmd = new SqlCommand(sqlCommand, sqlconn);
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                sqlconn.Close();
+            }
+            return RedirectToAction("PublishedTasks");
+        }
+
         #region 辅助方法
 
-          private void PublishTask(PublishTasks task)
+        private void PublishTask(PublishTasks task, int PublishedTasksAcount)
         {
             if (string.IsNullOrEmpty(task.Comment))
             {
@@ -161,8 +232,13 @@ namespace GetLBAMVC.Controllers
             task.city = GetPublisherCity(task.PublishUserName);//get publisher city
 
             SqlConnection sqlconn = commonContext.connectonToMSSQL();
+            string sqlCommand=string.Empty;
+            for (int i = 0; i < PublishedTasksAcount; i++)
+            {
+                sqlCommand += string.Format(@"use {0}; insert PublishTasks(PublishUserName,links,wangwangxiaohao,TaskPrice,charges,Comment,city,PublishTime,CompleteTime,TaskType ) values('{6}',N'{1}',N'{2}','{3}','{4}',N'{5}',N'{7}','{8}','{9}',N'{10}');", DBName, task.links, task.wangwangxiaohao, task.TaskPrice, task.charges, task.Comment, task.PublishUserName, task.city, task.PublishTime, task.CompleteTime, task.TaskType);
 
-            string sqlCommand = string.Format(@"use {0}; insert PublishTasks(PublishUserName,links,wangwangxiaohao,TaskPrice,charges,Comment,city,PublishTime,CompleteTime,TaskType ) values('{6}',N'{1}',N'{2}','{3}','{4}',N'{5}',N'{7}','{8}','{9}',N'{10}');", DBName, task.links, task.wangwangxiaohao, task.TaskPrice, task.charges, task.Comment, task.PublishUserName, task.city, task.PublishTime, task.CompleteTime, task.TaskType);
+            }
+
             sqlconn.Open();
 
             SqlCommand cmd = new SqlCommand(sqlCommand, sqlconn);
@@ -186,7 +262,7 @@ namespace GetLBAMVC.Controllers
             SqlConnection sqlconn = commonContext.connectonToMSSQL();
 
             //string sqlCommand = string.Format(@"use {0}; select * from PublishTasks where PublishUserName='{1}'", DBName, username);
-            string sqlCommand = string.Format(@"use {0}; select * from publishTasks where PublishUserName=N'{1}' and ReceiverName is null  ", DBName,username);
+            string sqlCommand = string.Format(@"use {0}; select * from publishTasks where PublishUserName=N'{1}' and IsDeleted=0 and ReceiverName='' order by PublishTime DESC ", DBName, username);
 
             sqlconn.Open();
 
@@ -211,12 +287,41 @@ namespace GetLBAMVC.Controllers
         }
 
 
+        private List<PublishTasks> GetAllWaitToBeDoneTasksPublishedByMe(string username)
+        {
+            List<PublishTasks> tasks = new List<PublishTasks>();
+            SqlConnection sqlconn = commonContext.connectonToMSSQL();
+
+            string sqlCommand = string.Format(@"use {0}; select * from PublishTasks where PublishUserName='{1}' and CompleteStatus=N'{2}' and  ReceiverName!='' order by PublishTime DESC ", DBName, username, GetLBAMVC.Models.commonContext.CompleteStatus.等待完成);
+
+            sqlconn.Open();
+
+            SqlCommand cmd = new SqlCommand(sqlCommand, sqlconn);
+
+            SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (reader.Read())
+            {
+
+                PublishTasks task = new PublishTasks();
+
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    PropertyInfo property = task.GetType().GetProperty(reader.GetName(i));
+                    property.SetValue(task, reader.IsDBNull(i) ? "[null]" : reader.GetValue(i), null);
+                }
+                tasks.Add(task);
+            }
+            reader.Close();
+            return tasks;
+        }
+
         private List<PublishTasks> GetAllCompletedTasksPublishedByMe(string username)
         {
             List<PublishTasks> tasks = new List<PublishTasks>();
             SqlConnection sqlconn = commonContext.connectonToMSSQL();
 
-            string sqlCommand = string.Format(@"use {0}; select * from PublishTasks where PublishUserName='{1}' and CompleteStatus=1 and  ReceiverName is not null", DBName, username);
+            string sqlCommand = string.Format(@"use {0}; select * from PublishTasks where PublishUserName='{1}' and CompleteStatus=N'{2}' and  ReceiverName!='' order by PublishTime DESC", DBName, username, GetLBAMVC.Models.commonContext.CompleteStatus.已完成);
 
             sqlconn.Open();
 
@@ -276,7 +381,7 @@ namespace GetLBAMVC.Controllers
             List<PublishTasks> tasks = new List<PublishTasks>();
             SqlConnection sqlconn = commonContext.connectonToMSSQL();
 
-            string sqlCommand = string.Format(@"use {0}; select p.ReceiverName,u.city,p.links,p.wangwangxiaohao,p.TaskPrice,p.TaskType,p.Comment,p.charges from PublishTasks p left join QT_USER u on p.ReceiverName=u.UserName where PublishUserName='{1}'and ReceiverName is not null ", DBName, User.Identity.Name);
+            string sqlCommand = string.Format(@"use {0}; select p.ReceiverName,u.city,p.links,p.wangwangxiaohao,p.TaskPrice,p.TaskType,p.Comment,p.charges from PublishTasks p left join QT_USER u on p.ReceiverName=u.UserName where PublishUserName='{1}'and ReceiverName!=''  order by PublishTime DESC ", DBName, User.Identity.Name);
 
             sqlconn.Open();
 
@@ -305,7 +410,7 @@ namespace GetLBAMVC.Controllers
         {           
             SqlConnection sqlconn = commonContext.connectonToMSSQL();
 
-            string sqlCommand = string.Format(@"use {0}; update  PublishTasks set CompleteStatus=1 where PublishTaskID={1};", DBName, publishTaskID);
+            string sqlCommand = string.Format(@"use {0}; update  PublishTasks set CompleteStatus=N'{2}' where PublishTaskID={1};", DBName, publishTaskID,GetLBAMVC.Models.commonContext.CompleteStatus.已完成);
             sqlconn.Open();
 
             SqlCommand cmd = new SqlCommand(sqlCommand, sqlconn);
@@ -321,6 +426,37 @@ namespace GetLBAMVC.Controllers
             {
                 sqlconn.Close();
             }
+        }
+
+
+        private List<PublishTasks> GetAllDeletePublishTasksByMe(string publisher)
+        {
+            List<PublishTasks> tasks = new List<PublishTasks>();
+            SqlConnection sqlconn = commonContext.connectonToMSSQL();
+
+            //string sqlCommand = string.Format(@"use {0}; select * from PublishTasks where PublishUserName='{1}'", DBName, username);
+            string sqlCommand = string.Format(@"use {0}; select * from publishTasks where PublishUserName=N'{1}' and IsDeleted=1 order by PublishTime DESC ", DBName, publisher);
+
+            sqlconn.Open();
+
+            SqlCommand cmd = new SqlCommand(sqlCommand, sqlconn);
+
+            SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (reader.Read())
+            {
+
+                PublishTasks task = new PublishTasks();
+
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    PropertyInfo property = task.GetType().GetProperty(reader.GetName(i));
+                    property.SetValue(task, reader.IsDBNull(i) ? "[null]" : reader.GetValue(i), null);
+                }
+                tasks.Add(task);
+            }
+            reader.Close();
+            return tasks;
         }
 
         #endregion 

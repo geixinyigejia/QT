@@ -68,7 +68,7 @@
                     @Html.DisplayFor(modelItem => item.Comment)
                 </td>
                
-                <td>@Html.ActionLink("接手任务", "JieshouTask", new { publishTaskID = item.PublishTaskID, PublishUserName=item.PublishUserName })</td>
+                <td>@Html.ActionLink("删除任务", "shanchuTask", new { publishTaskID = item.PublishTaskID })</td>
 </tr>
         }
 

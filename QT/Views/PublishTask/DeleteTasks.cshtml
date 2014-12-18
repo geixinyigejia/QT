@@ -1,1 +1,79 @@
-﻿<h2>删除已发布的任务</h2>
+﻿@model IEnumerable<GetLBAMVC.Models.PublishTasks>
+@using PagedList;
+@using PagedList.Mvc;
+
+<h3>删除的任务</h3>
+
+<div class="table-responsive" style="margin-top:35px;margin-left:35px">
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.PublishTime)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.links)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.wangwangxiaohao)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TaskPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.charges)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Comment)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TaskType)
+                </th>
+               
+
+            </tr>
+        </thead>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PublishTime)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.links)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.wangwangxiaohao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaskPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.charges)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaskType)
+                </td>
+               
+            </tr>
+        }
+
+    </table>
+</div>
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+@{
+    var data = Model as IPagedList<GetLBAMVC.Models.PublishTasks>;
+}
+<div style="margin-left:35px;">
+    @Html.PagedListPager(list: data,
+        generatePageUrl: page => Url.Action("PublishedTasks", new { p = page }))
+
+</div>

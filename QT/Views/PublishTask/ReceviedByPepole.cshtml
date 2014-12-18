@@ -72,8 +72,8 @@
                     @Html.DisplayFor(modelItem => item.TaskType)
                 </td>
                 <td>
-                    @Html.ActionLink("确认", "Edit", new { id = item.PublishUserName }) |
-                    @Html.ActionLink("拒绝", "Delete", new { id = item.PublishUserName })
+                    @Html.ActionLink("确认", "WaitToBeDone") |
+                    @Html.ActionLink("拒绝", "RefuseTheRecevier", new { publishTaskID = item.PublishTaskID })
                 </td>
             </tr>
         }

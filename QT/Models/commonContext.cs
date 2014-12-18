@@ -12,7 +12,7 @@ namespace GetLBAMVC.Models
     {
         public static string connString = "Data Source=(local);Integrated Security=True";
         ////public static string connString = "Data Source='JENNY\\SQLEXPRESS';Integrated Security=True";
-     
+
         public static SqlConnection connectonToMSSQL()
         {
 
@@ -22,17 +22,30 @@ namespace GetLBAMVC.Models
 
         }
 
-     public    enum CheckStaus
+        public enum CheckStaus
         {
             待审核,
-           审核通过
+            审核通过
         };
 
-   public  enum AcountStatus
+        public enum AcountStatus
         {
             禁用,
-           正常
+            正常
         } ;
+
+        public enum CompleteStatus
+        {
+            等待完成,
+            已完成,
+        }
+
+        public enum TaskType
+        {
+            电脑,
+            手机,
+            电脑手机
+        }
     }
 }
     
