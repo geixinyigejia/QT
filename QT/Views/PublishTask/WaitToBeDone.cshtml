@@ -36,7 +36,10 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.ShuadanType)
-                </th>                
+                </th>   
+                <th>
+                    @Html.DisplayNameFor(model => model.payment)
+                </th>             
                 <th>任务操作</th>
             </tr>
         </thead>
@@ -75,6 +78,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ShuadanType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.payment)
                 </td>
                 <td>
                     @Html.ActionLink("确认", "ConfrimCompleteTask", new { id = item.PublishTaskID })

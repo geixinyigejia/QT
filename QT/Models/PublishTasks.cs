@@ -181,5 +181,15 @@ namespace GetLBAMVC.Models
             get;
             set;
         }
+
+        /// <summary>
+        /// 支付方式：自助付款，财付通立返
+        /// </summary>
+        [DisplayName("支付方式")]
+        public string payment
+        {
+            get;
+            set;
+        }
     }
 }

@@ -18,6 +18,7 @@ CREATE TABLE [dbo].[PublishTasks](
 	[city] [nvarchar](100) NULL,
 	[IsDeleted] [bit] default 0,
 	[ShuadanType][nvarchar](50) NULL,
+	[payment][nvarchar](50) NULL,
 	)
 GO
 

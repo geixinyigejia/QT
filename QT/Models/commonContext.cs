@@ -52,6 +52,12 @@ namespace GetLBAMVC.Models
             快刷,
             慢刷
         }
+
+        public enum payment
+        {
+            自助付款,
+            财付通立返
+        }
     }
 }
     

@@ -232,6 +232,7 @@
     <Content Include="Ajax\GetLanguage.ashx" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Picture\QQ20141116150744.png" />
+    <Content Include="Picture\QQ图片20141219124418.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />

@@ -34,6 +34,8 @@ namespace GetLBAMVC.Controllers
 
             int publishedTasksAcount = int.Parse(PublishedTasksAcount);
             if (ModelState.IsValid)
+  
+            
             {
                 PublishTask(publishTasks, publishedTasksAcount);
             }
@@ -213,7 +215,7 @@ namespace GetLBAMVC.Controllers
             string sqlCommand=string.Empty;
             for (int i = 0; i < PublishedTasksAcount; i++)
             {
-                sqlCommand += string.Format(@"use {0}; insert PublishTasks(PublishUserName,links,wangwangxiaohao,TaskPrice,charges,Comment,city,PublishTime,CompleteTime,TaskType,ShuadanType ) values('{6}',N'{1}',N'{2}','{3}','{4}',N'{5}',N'{7}','{8}','{9}',N'{10}',N'{11}');", DBName, task.links, task.wangwangxiaohao, task.TaskPrice, task.charges, task.Comment, task.PublishUserName, task.city, task.PublishTime, task.CompleteTime, task.TaskType,task.ShuadanType);
+                sqlCommand += string.Format(@"use {0}; insert PublishTasks(PublishUserName,links,wangwangxiaohao,TaskPrice,charges,Comment,city,PublishTime,CompleteTime,TaskType,ShuadanType,payment ) values('{6}',N'{1}',N'{2}','{3}','{4}',N'{5}',N'{7}','{8}','{9}',N'{10}',N'{11}',N'{12}');", DBName, task.links, task.wangwangxiaohao, task.TaskPrice, task.charges, task.Comment, task.PublishUserName, task.city, task.PublishTime, task.CompleteTime, task.TaskType, task.ShuadanType,task.payment);
 
             }
 
