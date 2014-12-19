@@ -1,1 +1,71 @@
-﻿<h2>Suggestions</h2>
+﻿@model IEnumerable<GetLBAMVC.Models.Suggestion>
+@using PagedList;
+@using PagedList.Mvc;
+
+<form class="form-horizontal"  role="form" style="margin-top:35px;" method="post">
+    <div class="form-group">
+        <div class="col-sm-offset-1 col-sm-11">
+            <label for="firstname">我的反馈建议：</label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-1 col-sm-11">
+            <textarea class="form-control" rows="3" name="Comment" ;id="Comment" placeholder="注意：这里只讨论关于网站的改进。其它问题,比如规则要求,去QT找管理建议。"></textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-1 col-sm-11">
+            <button type="submit" class="btn btn-success btn-lg">反馈建议</button>
+        </div>
+    </div>
+</form>
+
+
+<div class="table-responsive" style="margin-top:35px;margin-left:35px">
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PublishUserName)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Content)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.PublishTime)
+            </th>
+        </tr>
+        </thead>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PublishUserName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Content)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.PublishTime)
+                </td>
+
+            </tr>}
+
+</table>
+ </div>
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+@{
+    var data = Model as IPagedList<GetLBAMVC.Models.Suggestion>;
+}
+<div style="margin-left:35px;">
+    @Html.PagedListPager(list: data,
+                        generatePageUrl: page => Url.Action("Suggestions", new { p = page }))
+</div>

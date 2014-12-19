@@ -1,2 +1,63 @@
-﻿
-<h2>Index</h2>
+﻿@model GetLBAMVC.Models.User
+
+
+<fieldset style="margin-top:35px;">
+    <legend style="margin-left:40px;">个人资料</legend>
+
+    <form class="form-horizontal" role="form" method="post">
+        <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">用户&nbsp&nbsp&nbsp&nbsp名：</label>
+            <div class="col-sm-10">
+                @Html.DisplayFor(model => model.UserName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">所在&nbsp&nbsp&nbsp&nbsp地：</label>
+            <div class="col-sm-10">
+                @Html.DisplayFor(model => model.city)
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">Q&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspQ：</label>
+            <div class="col-sm-10">
+                @Html.DisplayFor(model => model.QQ)
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">联系电话：</label>
+            <div class="col-sm-10">
+                @Html.DisplayFor(model => model.MobilePhone)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">注册时间：</label>
+            <div class="col-sm-10">
+                @Html.DisplayFor(model => model.RegistTime)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">最后登录时间：</label>
+            <div class="col-sm-10">
+                @Html.DisplayFor(model => model.LastLogonTime)
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">用户类型：</label>
+            <div class="col-sm-10">
+                @Html.DisplayFor(model => model.UserType)
+            </div>
+        </div>        
+
+        <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">审核状态：</label>
+            <div class="col-sm-10">
+                @Html.DisplayFor(model => model.Checkstatus)
+            </div>
+        </div> 
+
+    </form>    
+
+</fieldset>

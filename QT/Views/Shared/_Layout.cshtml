@@ -66,7 +66,7 @@
              <div class="list-group" style="margin-top:10px">                
                 <li class="list-group-item" style="text-align:left;background-color: #3385FF;color: #fff""><b>&nbsp&nbsp&nbsp您好！@UserName</b></li>
                   <li class="list-group-item" style="text-align:left;">我的余额：<label id="lblMsg">@points</label> <a href="#" style="color:#3385FF" onclick="Refresh();">刷新</a></li>
-                  <li class="list-group-item" style="text-align:left;">充值&nbsp&nbsp提现</li>                 
+                  <li class="list-group-item" style="text-align:left;">@Html.ActionLink("充值", "", "", null, new { style = "color:red" })&nbsp&nbsp @Html.ActionLink("提现", "", "", null, new { style = "color:red" })</li>                 
               <li class="list-group-item" style="text-align:left;color:black"><b>每月完成的任务数量</b></li>
                 <li class="list-group-item" style="text-align:left;">&nbsp&nbsp已接任务：@ReceivedTaskCount</li>
                   <li class="list-group-item" style="text-align:left;">&nbsp&nbsp发布任务：@PublishTaskCount</li>                         
