@@ -17,7 +17,7 @@ CREATE TABLE [dbo].[PublishTasks](
 	[CompleteTime] [datetime2](7) NULL,
 	[city] [nvarchar](100) NULL,
 	[IsDeleted] [bit] default 0,
-
+	[ShuadanType][nvarchar](50) NULL,
 	)
 GO
 

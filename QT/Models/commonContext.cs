@@ -46,6 +46,12 @@ namespace GetLBAMVC.Models
             手机,
             电脑手机
         }
+
+        public enum ShuadanType
+        {
+            快刷,
+            慢刷
+        }
     }
 }
     

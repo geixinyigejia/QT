@@ -171,5 +171,15 @@ namespace GetLBAMVC.Models
             get;
             set;
         }
+
+        /// <summary>
+        /// 刷单类型;快刷/慢刷
+        /// </summary>  
+        [DisplayName("刷单类型")]
+        public string ShuadanType
+        {
+            get;
+            set;
+        }
     }
 }

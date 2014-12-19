@@ -34,6 +34,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.TaskType)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ShuadanType)
+                </th>            
 
                 <th>任务操作</th>
             </tr>
@@ -72,6 +75,9 @@
                     @Html.DisplayFor(modelItem => item.TaskType)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.ShuadanType)
+                </td>
+                <td>
                     @Html.ActionLink("确认", "ConfirmTheRecevier", new { publishTaskID = item.PublishTaskID }) |
                     @Html.ActionLink("拒绝", "RefuseTheRecevier", new { publishTaskID = item.PublishTaskID })
                 </td>
@@ -86,5 +92,5 @@
 }
 <div style="margin-left:35px;">
     @Html.PagedListPager(list: data,
-        generatePageUrl: page => Url.Action("PublishedTasks", new { p = page }))
+                generatePageUrl: page => Url.Action("ReceviedByPepole", new { p = page }))
 </div>

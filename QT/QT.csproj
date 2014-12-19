@@ -272,7 +272,6 @@
     <Content Include="Views\User\TaskRecords.cshtml" />
     <Content Include="Views\User\ChangePassword.cshtml" />
     <Content Include="Views\User\Suggestions.cshtml" />
-    <Content Include="Views\PublishTask\DoneTasks.cshtml" />
     <Content Include="Views\PublishTask\Index.cshtml" />
     <Content Include="Views\PublishTask\PublishedTasks.cshtml" />
     <Content Include="Views\Rules\Index.cshtml" />
@@ -287,6 +286,7 @@
     <Content Include="Views\ReceiveTask\Index.cshtml" />
     <Content Include="Views\ReceiveTask\DoneTasks.cshtml" />
     <Content Include="Views\ReceiveTask\WaitToBeDone.cshtml" />
+    <Content Include="Views\PublishTask\DoneTasks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

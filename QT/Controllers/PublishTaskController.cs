@@ -213,7 +213,7 @@ namespace GetLBAMVC.Controllers
             string sqlCommand=string.Empty;
             for (int i = 0; i < PublishedTasksAcount; i++)
             {
-                sqlCommand += string.Format(@"use {0}; insert PublishTasks(PublishUserName,links,wangwangxiaohao,TaskPrice,charges,Comment,city,PublishTime,CompleteTime,TaskType ) values('{6}',N'{1}',N'{2}','{3}','{4}',N'{5}',N'{7}','{8}','{9}',N'{10}');", DBName, task.links, task.wangwangxiaohao, task.TaskPrice, task.charges, task.Comment, task.PublishUserName, task.city, task.PublishTime, task.CompleteTime, task.TaskType);
+                sqlCommand += string.Format(@"use {0}; insert PublishTasks(PublishUserName,links,wangwangxiaohao,TaskPrice,charges,Comment,city,PublishTime,CompleteTime,TaskType,ShuadanType ) values('{6}',N'{1}',N'{2}','{3}','{4}',N'{5}',N'{7}','{8}','{9}',N'{10}',N'{11}');", DBName, task.links, task.wangwangxiaohao, task.TaskPrice, task.charges, task.Comment, task.PublishUserName, task.city, task.PublishTime, task.CompleteTime, task.TaskType,task.ShuadanType);
 
             }
 

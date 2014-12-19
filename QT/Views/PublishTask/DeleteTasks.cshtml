@@ -31,8 +31,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.TaskType)
                 </th>
-               
-
+                <th>
+                    @Html.DisplayNameFor(model => model.ShuadanType)
+                </th>               
             </tr>
         </thead>
 
@@ -61,7 +62,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.TaskType)
                 </td>
-               
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShuadanType)
+                </td>
             </tr>
         }
 
@@ -74,6 +77,6 @@
 }
 <div style="margin-left:35px;">
     @Html.PagedListPager(list: data,
-        generatePageUrl: page => Url.Action("PublishedTasks", new { p = page }))
+                generatePageUrl: page => Url.Action("DeleteTasks", new { p = page }))
 
 </div>
