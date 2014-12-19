@@ -153,6 +153,7 @@
     </Compile>
     <Compile Include="Models\commonContext.cs" />
     <Compile Include="Models\PublishTasks.cs" />
+    <Compile Include="Models\ReceivedTasks.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -271,9 +272,6 @@
     <Content Include="Views\User\TaskRecords.cshtml" />
     <Content Include="Views\User\ChangePassword.cshtml" />
     <Content Include="Views\User\Suggestions.cshtml" />
-    <Content Include="Views\ReceiveTask\Index.cshtml" />
-    <Content Include="Views\ReceiveTask\WaitToBeDone.cshtml" />
-    <Content Include="Views\ReceiveTask\DoneTasks.cshtml" />
     <Content Include="Views\PublishTask\DoneTasks.cshtml" />
     <Content Include="Views\PublishTask\Index.cshtml" />
     <Content Include="Views\PublishTask\PublishedTasks.cshtml" />
@@ -286,6 +284,9 @@
     <Content Include="Views\Computer\Index.cshtml" />
     <Content Include="Views\PhoneComputer\Index.cshtml" />
     <Content Include="Views\Phone\Index.cshtml" />
+    <Content Include="Views\ReceiveTask\Index.cshtml" />
+    <Content Include="Views\ReceiveTask\DoneTasks.cshtml" />
+    <Content Include="Views\ReceiveTask\WaitToBeDone.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

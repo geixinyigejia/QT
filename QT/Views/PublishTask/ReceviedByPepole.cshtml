@@ -7,9 +7,9 @@
     <table class="table table-striped table-hover">
         <thead>
             <tr>
-                @*<th>
-                @Html.DisplayNameFor(model => model.PublishTaskID)
-            </th>*@
+                <th style="display:none;">
+                    @Html.DisplayNameFor(model => model.PublishTaskID)
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.ReceiverName)
                 </th>
@@ -42,9 +42,9 @@
         @foreach (var item in Model)
         {
             <tr>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.PublishTaskID)
-                    </td>*@
+                <td style="display:none;">
+                    @Html.DisplayFor(modelItem => item.PublishTaskID)
+                </td>
 
                 <td>
                     @Html.DisplayFor(modelItem => item.ReceiverName)
@@ -72,7 +72,7 @@
                     @Html.DisplayFor(modelItem => item.TaskType)
                 </td>
                 <td>
-                    @Html.ActionLink("确认", "WaitToBeDone") |
+                    @Html.ActionLink("确认", "ConfirmTheRecevier", new { publishTaskID = item.PublishTaskID }) |
                     @Html.ActionLink("拒绝", "RefuseTheRecevier", new { publishTaskID = item.PublishTaskID })
                 </td>
             </tr>

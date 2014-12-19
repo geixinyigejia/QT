@@ -69,7 +69,7 @@ namespace GetLBAMVC.Controllers
 
         private int GetPublishTaskByMonth(string userName)
         {
-            int result = -1;
+            int result = 0;
          
             SqlConnection sqlconn = commonContext.connectonToMSSQL();
             string sqlCommand = string.Format(@"use {0};select PublishTasks.PublishUserName,count(PublishTaskID) as PublishTaskCount from dbo.PublishTasks where PublishUserName=N'{1}' and YEAR(PublishTime)=YEAR(GETDATE()) and MONTH(PublishTime)=MONTH(GETDATE()) group by PublishTasks.PublishUserName,YEAR(PublishTime),MONTH(PublishTime)",DBName,userName);

@@ -111,6 +111,15 @@ namespace GetLBAMVC.Models
             get;
             set;
         }
+
+        /// <summary>
+        /// 确认接收人
+        /// </summary>
+        public Boolean ReceiverConfirm
+        {
+            get;
+            set;
+        }
         /// <summary>
         /// 发布任务时间
         /// </summary>
