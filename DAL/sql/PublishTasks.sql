@@ -35,3 +35,20 @@ group by PublishTasks.PublishUserName,YEAR(PublishTime),MONTH(PublishTime)
 
 select p.ReceiverName,u.city,p.links,p.wangwangxiaohao,p.TaskPrice,p.TaskType,p.Comment,p.charges from PublishTasks p 
 left join QT_USER u on p.ReceiverName=u.UserName where PublishUserName='admin'and ReceiverName!=''
+
+select * from PublishTasks
+
+delete  from PublishTasks
+
+update PublishTasks set CompleteStatus=N'等待完成' where PublishTaskID=37
+
+快刷15分钟：
+单  白号3   加链接不加佣金
+单1-3心    5
+单4心    6
+单钻号    7
+
+双链接全部在此基础上多加1元，手机全部在此基础上再多加1元
+双链接全部在此基础上多加1元，手机全部在此基础上再多加1元
+
+财富通付款 超过500元 加1块

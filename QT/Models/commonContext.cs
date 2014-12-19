@@ -58,6 +58,14 @@ namespace GetLBAMVC.Models
             自助付款,
             财付通立返
         }
+
+        public enum wangwangxiaohao
+        {
+            默认,
+            白号,
+            四星,
+            钻号
+        }
     }
 }
     

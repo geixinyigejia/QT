@@ -179,9 +179,8 @@ namespace GetLBAMVC.Controllers
 
             SqlConnection sqlconn = commonContext.connectonToMSSQL();
 
-            string sqlCommand = string.Format(@"use {0};update PublishTasks set CompleteStatus=N'{2}' where PublishTaskID={1}", DBName, PublishTaskID, GetLBAMVC.Models.commonContext.CompleteStatus.已完成);
-            //sqlCommand += string.Format();
-
+            string sqlCommand = string.Format(@"use {0};update PublishTasks set CompleteStatus=N'{2}',CompleteTime=N'{3}' where PublishTaskID={1}", DBName, PublishTaskID, GetLBAMVC.Models.commonContext.CompleteStatus.已完成.ToString(),DateTime.Now);
+                  
             sqlconn.Open();
 
             SqlCommand cmd = new SqlCommand(sqlCommand, sqlconn);
@@ -197,7 +196,46 @@ namespace GetLBAMVC.Controllers
             {
                 sqlconn.Close();
             }
-            return RedirectToAction("WaitToBeDone");
+
+           //查出完成的这个订单的信息，从而完成扣款或偿付佣金
+         
+             sqlCommand = string.Format(@"use {0}; select * from publishTasks where PublishTaskID='{1}' and CompleteStatus=N'{2}'  order by PublishTime DESC ", DBName, publishTaskID,GetLBAMVC.Models.commonContext.CompleteStatus.已完成.ToString());
+
+            sqlconn.Open();
+
+             cmd = new SqlCommand(sqlCommand, sqlconn);
+
+            SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+            PublishTasks task = new PublishTasks();
+            while (reader.Read())
+            {
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    PropertyInfo property = task.GetType().GetProperty(reader.GetName(i));
+                    property.SetValue(task, reader.IsDBNull(i) ? "[null]" : reader.GetValue(i), null);
+                }               
+            }
+            reader.Close();
+
+            //处理扣款 和偿付佣金
+            sqlCommand = string.Format(@"use {2};update QT_USER set points=points-{0} where UserName=N'{1}';", task.charges, task.PublishUserName,DBName);
+            sqlCommand += string.Format(@"update QT_USER set points=points+{0} where UserName=N'{1}';", task.charges, task.ReceiverName);
+
+           sqlconn.Open();
+           cmd = new SqlCommand(sqlCommand, sqlconn);
+           try
+           {
+               cmd.ExecuteNonQuery();
+           }
+           catch (Exception ex)
+           {
+               throw ex;
+           }
+           finally
+           {
+               sqlconn.Close();
+           }
+            return RedirectToAction("DoneTasks");
         }
 
 
@@ -210,6 +248,9 @@ namespace GetLBAMVC.Controllers
                 task.Comment = string.Empty;
             }
             task.city = GetPublisherCity(task.PublishUserName);//get publisher city
+
+            // Calculation the total charge 
+            task.charges = CalculationTotalcharge(task);
 
             SqlConnection sqlconn = commonContext.connectonToMSSQL();
             string sqlCommand=string.Empty;
@@ -266,7 +307,54 @@ namespace GetLBAMVC.Controllers
             return tasks;
         }
 
+        private int CalculationTotalcharge(PublishTasks task)
+        {
+            int totalPayment = 0;
+           
+            // 快刷的基本价格
+            if(task.wangwangxiaohao==GetLBAMVC.Models.commonContext.wangwangxiaohao.白号.ToString())
+            {
+                totalPayment = 3;
+            }
+            else if (task.wangwangxiaohao == GetLBAMVC.Models.commonContext.wangwangxiaohao.默认.ToString())
+            {
+                totalPayment = 5;
+            }
+            else if (task.wangwangxiaohao == GetLBAMVC.Models.commonContext.wangwangxiaohao.四星.ToString())
+            {
+                totalPayment = 6;
+            }
+            else if (task.wangwangxiaohao == GetLBAMVC.Models.commonContext.wangwangxiaohao.钻号.ToString())
+            {
+                totalPayment = 7;
+            }
 
+            //手机订单加1元
+            if (task.TaskType == GetLBAMVC.Models.commonContext.TaskType.手机.ToString() || task.TaskType == GetLBAMVC.Models.commonContext.TaskType.电脑手机.ToString())
+            {
+                totalPayment += 1;
+            }
+
+            //双链接 单不是白号加1元
+            if (task.links == "双链接" && task.wangwangxiaohao != GetLBAMVC.Models.commonContext.wangwangxiaohao.白号.ToString())
+            {
+                totalPayment += 1;
+            }
+
+            //财付通付款，超过500 加1元
+            if(task.payment==GetLBAMVC.Models.commonContext.payment.财付通立返.ToString() && task.TaskPrice>=500)
+            {
+                totalPayment += 1;
+            }
+
+            // 慢刷加1元
+            if(task.ShuadanType==GetLBAMVC.Models.commonContext.ShuadanType.慢刷.ToString())
+            {
+                totalPayment += 1;
+            }
+
+            return totalPayment;
+        }
         private List<PublishTasks> GetAllWaitToBeDoneTasksPublishedByMe(string username)
         {
             List<PublishTasks> tasks = new List<PublishTasks>();

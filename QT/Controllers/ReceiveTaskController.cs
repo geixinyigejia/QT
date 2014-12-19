@@ -45,7 +45,7 @@ namespace GetLBAMVC.Controllers
             SqlConnection sqlconn = commonContext.connectonToMSSQL();
 
             //string sqlCommand = string.Format(@"use {0}; select * from PublishTasks where PublishUserName='{1}'", DBName, username);
-            string sqlCommand = string.Format(@"use {0}; select * from PublishTasks where  ReceiverName='{1}' order by PublishTime DESC ", DBName, username);
+            string sqlCommand = string.Format(@"use {0}; select * from PublishTasks where  ReceiverName='{1}'  and ReceiverConfirm=0  order by PublishTime DESC ", DBName, username);
 
             sqlconn.Open();
 
@@ -75,7 +75,7 @@ namespace GetLBAMVC.Controllers
             SqlConnection sqlconn = commonContext.connectonToMSSQL();
 
             //string sqlCommand = string.Format(@"use {0}; select * from PublishTasks where PublishUserName='{1}'", DBName, username);
-            string sqlCommand = string.Format(@"use {0}; select * from PublishTasks where  ReceiverName='{1}' order by PublishTime DESC ", DBName, username);
+            string sqlCommand = string.Format(@"use {0}; select * from PublishTasks where  ReceiverName='{1}' and ReceiverConfirm=1 and CompleteStatus=N'{2}' order by PublishTime DESC ", DBName, username,GetLBAMVC.Models.commonContext.CompleteStatus.等待完成.ToString());
 
             sqlconn.Open();
 
@@ -105,7 +105,7 @@ namespace GetLBAMVC.Controllers
             SqlConnection sqlconn = commonContext.connectonToMSSQL();
 
             //string sqlCommand = string.Format(@"use {0}; select * from PublishTasks where PublishUserName='{1}'", DBName, username);
-            string sqlCommand = string.Format(@"use {0}; select * from PublishTasks where  ReceiverName='{1}' order by PublishTime DESC ", DBName, username);
+            string sqlCommand = string.Format(@"use {0}; select * from PublishTasks where  ReceiverName='{1}' and ReceiverConfirm=1 and CompleteStatus=N'{2}' order by PublishTime DESC ", DBName, username,GetLBAMVC.Models.commonContext.CompleteStatus.已完成.ToString());
 
             sqlconn.Open();
 

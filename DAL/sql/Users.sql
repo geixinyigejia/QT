@@ -20,6 +20,7 @@ CREATE TABLE [dbo].[QT_USER](
 
 GO
 
+select * from QT_USER
 
 update QT_USER set UserType=N'管理员' where UserName='admin'
 

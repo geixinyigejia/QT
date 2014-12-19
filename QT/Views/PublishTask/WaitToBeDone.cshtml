@@ -3,6 +3,8 @@
 @using PagedList;
 @using PagedList.Mvc;
 
+<h3>等待完成的任务</h3>
+
 <div class="table-responsive" style="margin-top:35px;margin-left:35px">
     <table class="table table-striped table-hover">
         <thead>
@@ -83,7 +85,7 @@
                     @Html.DisplayFor(modelItem => item.payment)
                 </td>
                 <td>
-                    @Html.ActionLink("确认", "ConfrimCompleteTask", new { id = item.PublishTaskID })
+                    @Html.ActionLink("确认", "ConfrimCompleteTask", new { publishTaskID = item.PublishTaskID })
                    
                 </td>
             </tr>
