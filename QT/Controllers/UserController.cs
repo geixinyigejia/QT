@@ -23,9 +23,11 @@ namespace GetLBAMVC.Controllers
             return View(userInfo);
         }
 
-        public ActionResult TaskRecords()
+        public ActionResult TaskRecords(int p=1)
         {
-            return View();
+            List<FinancialRecord> Records =  FinancialRecords(User.Identity.Name);
+            var pagedData = Records.ToPagedList(pageNumber: p, pageSize: 20);
+            return View(pagedData);
         }
 
         public ActionResult ChangePassword()
@@ -33,7 +35,7 @@ namespace GetLBAMVC.Controllers
             return View();
         }
         public ActionResult Suggestions( int p = 1)
-        {           
+        {
             List<Suggestion> suggesions = GetAllSuggestions();
             var pagedData = suggesions.ToPagedList(pageNumber: p, pageSize: 20);
             return View(pagedData);
@@ -118,6 +120,32 @@ namespace GetLBAMVC.Controllers
             {
                 sqlconn.Close();
             }
+        }
+
+
+        private List<FinancialRecord> FinancialRecords(string username)
+        {
+            List<FinancialRecord> Records = new List<FinancialRecord>();
+
+            SqlConnection sqlconn = commonContext.connectonToMSSQL();
+            string sqlCommand = string.Format(@"use {0}; select  * from QT_Financial_Record where UserName=N'{1}' order by RecordTime DESC;", DBName, username);
+            sqlconn.Open();
+            SqlCommand cmd = new SqlCommand(sqlCommand, sqlconn);
+
+            SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (reader.Read())
+            {
+                FinancialRecord Record = new FinancialRecord();
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    PropertyInfo property = Record.GetType().GetProperty(reader.GetName(i));
+                    property.SetValue(Record, reader.IsDBNull(i) ? "[null]" : reader.GetValue(i), null);
+                }
+                Records.Add(Record);
+            }
+            reader.Close();
+            return Records;
         }
         #endregion 
     }

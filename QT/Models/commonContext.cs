@@ -66,6 +66,13 @@ namespace GetLBAMVC.Models
             四星,
             钻号
         }
+        public enum ChangeMethod
+        {
+            提现,
+            充值,
+            放单,
+            接单
+        }
     }
 }
     

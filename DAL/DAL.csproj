@@ -42,10 +42,10 @@
     <Compile Include="DALCommon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="sql\CityDistrict.sql" />
     <Content Include="sql\PublishTasks.sql" />
+    <Content Include="sql\QT_Financial_Record.sql" />
     <Content Include="sql\QT_Suggestion.sql" />
     <Content Include="sql\ReceivedTasks.sql" />
     <Content Include="sql\Users.sql" />

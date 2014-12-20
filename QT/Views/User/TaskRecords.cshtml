@@ -1,1 +1,77 @@
-﻿<h2>TaskRecords</h2>
+﻿@model IEnumerable<GetLBAMVC.Models.FinancialRecord>
+
+@using PagedList;
+@using PagedList.Mvc;
+
+<div class="table-responsive" style="margin-top:35px;margin-left:35px">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                @*<th>
+                    @Html.DisplayNameFor(model => model.UserName)
+                </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.RecordTime)
+                </th>
+               
+                <th>
+                    @Html.DisplayNameFor(model => model.ChangeMethod)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.ChangedBeforePoints)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ChangedPoints)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.ChangedAfterPoints)
+                </th>  
+                
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>              
+            </tr>
+        </thead>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.RecordTime)
+                </td>
+               
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChangeMethod)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChangedBeforePoints)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChangedPoints)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChangedAfterPoints)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+@{
+    var data = Model as IPagedList<GetLBAMVC.Models.FinancialRecord>;
+}
+<div style="margin-left:35px;">
+    @Html.PagedListPager(list: data,
+                generatePageUrl: page => Url.Action("TaskRecords", new { p = page }))
+</div>

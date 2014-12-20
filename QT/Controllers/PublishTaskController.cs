@@ -216,10 +216,13 @@ namespace GetLBAMVC.Controllers
                 }               
             }
             reader.Close();
-
-            //处理扣款 和偿付佣金
+            Decimal PublishUserPoints = GetUserPointsByUserName(task.PublishUserName);
+            Decimal ReceiverNamePoints = GetUserPointsByUserName(task.ReceiverName);
+            //处理扣款 和偿付佣金    及记录金额的变化情况
             sqlCommand = string.Format(@"use {2};update QT_USER set points=points-{0} where UserName=N'{1}';", task.charges, task.PublishUserName,DBName);
             sqlCommand += string.Format(@"update QT_USER set points=points+{0} where UserName=N'{1}';", task.charges, task.ReceiverName);
+            sqlCommand += string.Format(@"insert QT_Financial_Record(UserName,RecordTime,ChangeMethod,ChangedBeforePoints,ChangedAfterPoints,Description,ChangedPoints) values(N'{0}','{1}',N'{2}',{3},{4},'{5}',{6});", task.PublishUserName, DateTime.Now, commonContext.ChangeMethod.放单, PublishUserPoints, task.charges, "",PublishUserPoints-task.charges);
+            sqlCommand += string.Format(@"insert QT_Financial_Record(UserName,RecordTime,ChangeMethod,ChangedBeforePoints,ChangedAfterPoints,Description,ChangedPoints) values(N'{0}','{1}',N'{2}',{3},{4},'{5}',{6});", task.ReceiverName, DateTime.Now, commonContext.ChangeMethod.接单, ReceiverNamePoints, task.charges, "", ReceiverNamePoints+ task.charges);
 
            sqlconn.Open();
            cmd = new SqlCommand(sqlCommand, sqlconn);
@@ -525,6 +528,36 @@ namespace GetLBAMVC.Controllers
             }
             reader.Close();
             return tasks;
+        }
+
+        private Decimal GetUserPointsByUserName(string userName)
+        {
+            Decimal points = 0;
+            SqlConnection sqlconn = commonContext.connectonToMSSQL();
+
+            string sqlCommand = string.Format(@"use {0}; select points from QT_USER where UserName='{1}'", DBName, userName);
+
+            sqlconn.Open();
+
+            SqlCommand cmd = new SqlCommand(sqlCommand, sqlconn);           
+
+            try
+            {
+                DataTable dt = new DataTable();
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+                DataRow dr = dt.Rows[0];//第一值 
+                points = Decimal.Parse(dr["points"].ToString());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                sqlconn.Close();
+            }
+            return points;
         }
 
         #endregion 
