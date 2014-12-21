@@ -16,11 +16,11 @@
         $el.parent().hide();
         var elWidth = $el.css("width");
         $el.parent().show();
-        if (elWidth=="0px") {elWidth = $el.outerWidth()+20}
+        if (elWidth == "0px") { elWidth = $el.outerWidth() + 20 }
 
         this.$el = $el.hide();
         this.options = options;
-        this.$parent = $('<div' + $.map(['class', 'title'],function (att) {
+        this.$parent = $('<div' + $.map(['class', 'title'], function (att) {
             var attValue = that.$el.attr(att) || '';
             attValue = (att === 'class' ? ('ms-parent' + (attValue ? ' ' : '')) : '') + attValue;
             return attValue ? (' ' + att + '="' + attValue + '"') : '';
@@ -203,22 +203,22 @@
                         break;
                 }
             });
-            this.$searchInput.off('keydown').on('keydown',function (e) {
+            this.$searchInput.off('keydown').on('keydown', function (e) {
                 if (e.keyCode === 9 && e.shiftKey) { // Ensure shift-tab causes lost focus from filter as with clicking away
                     that.close();
                 }
             }).off('keyup').on('keyup', function (e) {
-                    if (that.options.filterAcceptOnEnter &&
-                        (e.which === 13 || e.which == 32) && // enter or space
-                        that.$searchInput.val() // Avoid selecting/deselecting if no choices made
-                        ) {
-                        that.$selectAll.click();
-                        that.close();
-                        that.focus();
-                        return;
-                    }
-                    that.filter();
-                });
+                if (that.options.filterAcceptOnEnter &&
+                    (e.which === 13 || e.which == 32) && // enter or space
+                    that.$searchInput.val() // Avoid selecting/deselecting if no choices made
+                    ) {
+                    that.$selectAll.click();
+                    that.close();
+                    that.focus();
+                    return;
+                }
+                that.filter();
+            });
             this.$selectAll.off('click').on('click', function () {
                 var checked = $(this).prop('checked'),
                     $items = that.$selectItems.filter(':visible');

@@ -9,7 +9,7 @@
 
 
 @using (Html.BeginForm("ChargeQuery", "Admin", FormMethod.Post, new { @class = "form-inline", role = "form", style = "margin-top:30px;" }))
-{
+{ 
     @Html.Hidden("UsersID", ViewBag.UsersID as string[])
     <div class="form-group">
         <label style="color: #428bca">请选择用户：</label>
@@ -37,9 +37,9 @@
         filter: true
     });
 
-
+  
     $("#ms").change(function () {
-
+      
         $("#UsersID").val($("#ms").multipleSelect('getSelects'));
     });
 
@@ -56,9 +56,6 @@
     <table class="table table-striped table-hover">
         <thead>
             <tr>
-                <th style="display:none">
-                    @Html.DisplayNameFor(model => model.FinancialRecordID)
-                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.UserName)
                 </th>
@@ -83,18 +80,13 @@
                 <th>
                     @Html.DisplayNameFor(model => model.IsConfirmed)
                 </th>
-                <th>
-                    操作
-                </th>
+                
             </tr>
         </thead>
 
         @foreach (var item in Model)
         {
             <tr>
-                <td style="display:none">
-                    @Html.DisplayFor(modelItem => item.FinancialRecordID)
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.UserName)
                 </td>
@@ -116,20 +108,18 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.ChangedAfterPoints)
                 </td>
-                <td>
-                    @if (item.IsConfirmed == true)
+                <td>                    
+                    @if (item.IsConfirmed==true )
                     {
                         @:@("是")
                          }
-                    @if (item.IsConfirmed == false)
+                    @if (item.IsConfirmed ==false)
                     {
                         @:@("否")
                           }
-
+                    
                 </td>
-                <td>
-                @Html.ActionLink("确认", "", new { FinancialRecordID = item.FinancialRecordID })
-                </td>
+                
             </tr>
         }
 
@@ -141,5 +131,5 @@
 }
 <div style="margin-left:35px;">
     @Html.PagedListPager(list: data,
-                        generatePageUrl: page => Url.Action("ChargeManagment", new { p = page }))
+                generatePageUrl: page => Url.Action("ChargeQuery", new { p = page }))
 </div>

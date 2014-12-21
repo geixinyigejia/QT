@@ -13,6 +13,16 @@ namespace GetLBAMVC.Models
     public class FinancialRecord
     {
         /// <summary>
+        /// 记录ID
+        /// </summary>  
+        [DisplayName("记录ID")]
+        public int FinancialRecordID
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// 资金的用户名
         /// </summary>  
         [DisplayName("用户名")]

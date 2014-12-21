@@ -292,6 +292,8 @@
     <Content Include="Views\User\TaskRecords.cshtml" />
     <Content Include="Views\Admin\Chongzhi.cshtml" />
     <Content Include="Views\Admin\Tixian.cshtml" />
+    <Content Include="Views\Admin\UserQueryOperation.cshtml" />
+    <Content Include="Views\Admin\ChargeQuery.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

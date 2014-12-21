@@ -1,10 +1,11 @@
-﻿
+﻿@model IEnumerable<GetLBAMVC.Models.User>
 <link href="~/Content/multiple-select.css" rel="stylesheet" />
 <script src="~/Scripts/jquery.multiple.select.js"></script>
 
+@using PagedList;
+@using PagedList.Mvc;
 
-
-<table style="text-align: left;">
+<table style="text-align: left; margin-top:10px;">
     @Html.Hidden("UsersID", ViewBag.UsersID as string[])
     <tr>
         <td style="color: #428bca">请选择用户：</td>
@@ -16,15 +17,24 @@
     }
 </select>
         <td>
-        <td>@Html.CheckBox("审核通过", (bool)ViewBag.Verify)</td>         
-        <td style="color:red">审核通过</td>
+        <td><input id="kuaishua" type="radio" name="verify" value="审核通过" checked /></td>         
+        <td style="color: #428bca">审核通过</td>
+        <td><input id="manshua" type="radio" name="verify" value="审核不通过" /></td>
+        <td style="color:red">审核不通过</td>
         <td>@Html.CheckBox("设置为管理员", (bool)ViewBag.Grant)</td>
-        <td style="color:red">设置为管理员</td>
+        <td style="color: #428bca">设置为管理员</td>
         <td>
-            <input type="submit" value="执行" style="margin-left: 15px; color: #428bca; border: solid thin  #428bca" />
+            @*<input type="submit" value="执行" style="margin-left: 15px; color: #428bca; border: solid thin  #428bca" />*@
+            <button type="submit" class="btn btn-success">执行</button>
         </td>
     </tr>
-</table>     
+    <tr>
+        <td>
+            <button type="submit" class="btn btn-success">查询</button>
+        </td>
+    </tr>
+</table>   
+
 
 <script>
     $("#ms").multipleSelect({
@@ -44,3 +54,101 @@
         $("#ms").multipleSelect('setSelects', $("#UsersID")[0].value.split(","));
     };
     </script>
+
+<div class="table-responsive" style="margin-top:15px;margin-left:35px">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.points)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.city)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.QQ)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MobilePhone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RegistTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Checkstatus)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.LastLogonTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Acountstatus)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AcountStartTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserType)
+                </th>
+                <th>操作</th>
+            </tr>
+        </thead>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.points)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.city)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QQ)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MobilePhone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RegistTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Checkstatus)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastLogonTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Acountstatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AcountStartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserType)
+                </td>
+                <td>
+                    @Html.ActionLink("审核通过", "Edit", new { id = item.UserID }) |
+                    @Html.ActionLink("审核不通过", "Details", new { id = item.UserID }, new { style = "color:red" }) |
+                    @Html.ActionLink("设为管理员", "Delete", new { id = item.UserID })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+@{
+    var data = Model as IPagedList<GetLBAMVC.Models.User>;
+}
+<div style="margin-left:35px;">
+    @Html.PagedListPager(list: data,
+                        generatePageUrl: page => Url.Action("UserManagment", new { p = page }))
+</div>

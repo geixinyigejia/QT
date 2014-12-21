@@ -15,6 +15,7 @@ namespace GetLBAMVC.Models
         /// <summary>
         /// 用户id（QT编号）
         /// </summary>
+         [DisplayName("ID")]
         public int UserID
         {
             get;
@@ -24,6 +25,7 @@ namespace GetLBAMVC.Models
         /// <summary>
         /// 用户名称
         /// </summary>
+        [DisplayName("姓名")]
         public string UserName
         {
             get;
@@ -32,6 +34,7 @@ namespace GetLBAMVC.Models
         /// <summary>
         /// 刷单的累积点数 
         /// </summary>
+        [DisplayName("余额")]
         public int points
         {
             get;
@@ -41,6 +44,7 @@ namespace GetLBAMVC.Models
         /// <summary>
         /// 省市（IP地址）
         /// </summary>
+        [DisplayName("省市")]
         public string city
         {
             get;
@@ -50,6 +54,7 @@ namespace GetLBAMVC.Models
         /// <summary>
         /// QQ号码
         /// </summary>
+         [DisplayName("QQ")]
         public Int64 QQ
         {
             get;
@@ -59,6 +64,7 @@ namespace GetLBAMVC.Models
         /// <summary>
         /// 手机
         /// </summary>
+         [DisplayName("手机号码")]
         public Int64 MobilePhone
         {
             get;
@@ -67,6 +73,7 @@ namespace GetLBAMVC.Models
         /// <summary>
         ///注册时间
         /// </summary>
+         [DisplayName("注册时间")]
         public DateTime RegistTime
         {
             get;
@@ -76,6 +83,7 @@ namespace GetLBAMVC.Models
         /// <summary>
         /// 账号审核状态
         /// </summary>
+        [DisplayName("审核状态")]
         public string Checkstatus
         {
             get;
@@ -94,6 +102,7 @@ namespace GetLBAMVC.Models
         /// <summary>
         ///最后登录时间
         /// </summary>
+        [DisplayName("最后登录时间")]
         public DateTime LastLogonTime
         {
             get;
@@ -103,6 +112,7 @@ namespace GetLBAMVC.Models
         /// <summary>
         /// 账号启用状态
         /// </summary>
+        [DisplayName("启用状态")]
         public string Acountstatus
         {
             get;
@@ -112,6 +122,7 @@ namespace GetLBAMVC.Models
         /// <summary>
         ///账号启用时间
         /// </summary>
+        [DisplayName("启用时间")]
         public DateTime AcountStartTime
         {
             get;
@@ -121,6 +132,7 @@ namespace GetLBAMVC.Models
         /// <summary>
         /// 账户类型，是普通用户，还是管理员
         /// </summary>
+        [DisplayName("账户类型")]
         public string UserType
         {
             get;
